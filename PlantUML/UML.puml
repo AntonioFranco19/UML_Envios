@@ -1,0 +1,51 @@
+﻿    @startuml
+    
+    ' Entidades
+    abstract class Envio <<entity>> {
+        + Codigo : string
+        + Direccion : string
+        + Peso : string 
+    }
+    
+    class EnvioNacional <<entity>> {
+        + Costeseguro : double
+    }
+    
+    class EnvioInternacional <<entity>> {
+        + CodigoAduana : string
+        + PaisOrigne : string
+        + PaisDestino : string
+    }
+    
+    class Repartidor <<entity>> {
+        + DNI : string
+        + Nombre : string
+        + Telefono : string
+        
+        + ActualizarEstado()
+    }
+    
+    ' Control
+    class GestorLogica <<control>> {
+        + Pedido : Envio
+        + Repartidor : Repartidor
+        
+        + CalcularCoste()
+    }
+    
+    class InterfazUsuario <<boundary>> {
+        + Menu()
+        + PedirDatos()
+    }
+    
+    ' Herencia
+    Envio <|-- EnvioNacional
+    Envio <|-- EnvioInternacional
+    
+    ' Relaciones
+    Repartidor "1" -- "*" Envio
+    GestorLogica ..> Envio : <<gestiona>>
+    GestorLogica ..> Repartidor : <<gestiona>>
+    InterfazUsuario ..> GestorLogica
+    
+@enduml
