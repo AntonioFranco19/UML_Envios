@@ -4,7 +4,7 @@
     abstract class Envio <<entity>> {
         + Codigo : string
         + Direccion : string
-        + Peso : string 
+        + Peso : double
     }
     
     class EnvioNacional <<entity>> {
@@ -27,7 +27,7 @@
     
     ' Control
     class GestorLogica <<control>> {
-        + Pedido : Envio
+        + Pedido : List<Envio>
         + Repartidor : Repartidor
         
         + CalcularCoste()
